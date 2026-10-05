@@ -6,16 +6,19 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
-    constructor(
+  constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
-   
- getAllUsers() {
-    return this.userRepository.find();
+
+  getAllUsers() {
+    return this.userRepository.find({
+      order: {
+        id: 'ASC',
+      },
+    });
   }
 
-  
   async getById(id: number) {
     const user = await this.userRepository.findOneBy({ id });
 
@@ -25,12 +28,13 @@ export class UserService {
 
     return user;
   }
- createUser(user: Partial<User>) {
+
+  createUser(user: Partial<User>) {
     const newUser = this.userRepository.create(user);
     return this.userRepository.save(newUser);
   }
 
-async updateUser(id: number, updatedUser: Partial<User>) {
+  async updateUser(id: number, updatedUser: Partial<User>) {
     const user = await this.getById(id);
 
     Object.assign(user, updatedUser);
@@ -38,7 +42,6 @@ async updateUser(id: number, updatedUser: Partial<User>) {
     return this.userRepository.save(user);
   }
 
- 
   async deleteUser(id: number) {
     const user = await this.getById(id);
 
