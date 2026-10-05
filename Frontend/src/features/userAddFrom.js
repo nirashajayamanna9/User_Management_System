@@ -26,7 +26,7 @@ const AddUser = () => {
         role,
       }).unwrap();
 
-      navigate('/');
+      navigate('/user-list');
     } catch (error) {
       const message = error?.data?.message;
 

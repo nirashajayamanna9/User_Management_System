@@ -51,7 +51,7 @@ const EditUser = () => {
 
     try {
       await updateUser(updatedUser).unwrap();
-      navigate("/");
+      navigate("/user-list");
     } catch (error) {
       console.error("Failed to update user:", error);
     }
