@@ -110,7 +110,7 @@ const UserList = () => {
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Role</th>
+                <th className="text-start">Role</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -142,8 +142,14 @@ const UserList = () => {
 
                     <td>{user.email}</td>
 
-                    <td>
-                      <span className="badge bg-secondary">
+                    <td className="text-start">
+                      <span className="badge bg-secondary"
+                      style={{
+                        width: "80px",
+                        display: "inline-block",
+                        textAlign: "center",
+                        padding:"10px"
+                      }}>
                         {user.role}
                       </span>
                     </td>
