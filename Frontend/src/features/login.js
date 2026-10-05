@@ -11,30 +11,32 @@ const Login = () => {
 
   const [login] = useLoginMutation();
 
-  const handleLogin = async () => {
+ const handleLogin = async () => {
 
-  
+    try {
 
-  try {
+        const result = await login({
+        email: email,
+        password: password,
+        }).unwrap();
 
-    const result = await login({
-      email: email,
-      password: password,
-    }).unwrap();
+        if (result.message === "Login Successful") {
 
-    
+        localStorage.setItem(
+            "access_token",
+            result.access_token
+        );
 
-    if (result.message === "Login Successful") {
-      navigate("/user-list");
+        navigate("/user-list");
+        }
+
+    } catch (error) {
+
+        console.log("Login Error:", error);
+
+        alert("Invalid Email or Password");
     }
-
-  } catch (error) {
-
-    console.log("Login Error:", error);
-
-    alert("Invalid Email or Password");
-  }
-};
+    };
 
   return (
     <div className="container mt-5">
