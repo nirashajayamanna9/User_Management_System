@@ -1,0 +1,87 @@
+.table{
+  width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container{
+  text-align: center;
+    border: 2px solid black;  
+    padding: 20px;             
+    width: 300px;              
+    margin: 100px auto;    
+    border-radius: 10px;
+}
+.edit-button{
+    background-color: orange;
+}
+.delete-button{
+    background-color: red;
+}
+button{
+    background-color: blue;
+    color: white;
+}
+
+.user-list-container {
+    padding: 30px;
+    background-color: #f5f6fa;
+    min-height: 100vh;
+}
+
+.user-list-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+.containerAdd {
+    width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+.containerAdd h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+}
+
+
+
+.containerAdd input,
+.containerAdd select {
+    width: 50%;
+    padding: 11px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+.containerAdd input:focus,
+.containerAdd select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 4px rgba(52, 152, 219, 0.3);
+}
+
+.containerAdd button {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.containerAdd button:hover {
+    background-color: #2980b9;
+}
