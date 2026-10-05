@@ -115,7 +115,7 @@ const AddUser = () => {
                   <button
                     type="button"
                     className="btn btn-outline-secondary"
-                    onClick={() => navigate('/')}
+                    onClick={() => navigate('/user-list')}
                   >
                     Cancel
                   </button>
