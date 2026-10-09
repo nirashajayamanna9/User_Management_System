@@ -16,7 +16,7 @@ import { AuthModule } from './auth/auth.module';
       password: '123',
       database: 'users',
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
     }),
     UserModule,
     AuthModule,
