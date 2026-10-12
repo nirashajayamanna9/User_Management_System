@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetUserByIdQuery,
   useUpdateUserMutation,
-} from "../service/temp";
+} from "../service/userApi";
 
 const EditUser = () => {
   const { id } = useParams();

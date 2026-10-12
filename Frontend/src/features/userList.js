@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   useGetUsersQuery,
   useDeleteUserMutation,
-} from '../service/temp';
+} from '../service/userApi';
 
 const UserList = () => {
   const navigate = useNavigate();

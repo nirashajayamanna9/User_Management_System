@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAddUserMutation } from "../service/temp";
+import { useAddUserMutation } from "../service/userApi";
 
 const AddUser = () => {
   const navigate = useNavigate();
