@@ -9,33 +9,28 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
- const handleLogin = async () => {
+ const handleLogin = async (e) => {
+      e.preventDefault();
 
-    try {
-
+      try {
         const result = await login({
-        email: email,
-        password: password,
+          email,
+          password,
         }).unwrap();
 
-        if (result.message === "Login Successful") {
+        if (result.access_token) {
+          localStorage.setItem("access_token", result.access_token);
 
-        localStorage.setItem(
-            "access_token",
-            result.access_token
-        );
-
-        navigate("/user-list");
+          navigate("/user-list", { replace: true });
+        } else {
+          alert("Login failed. Access token not received.");
         }
-
-    } catch (error) {
-
+      } catch (error) {
         console.log("Login Error:", error);
-
         alert("Invalid Email or Password");
-    }
+      }
     };
 
   return (
@@ -84,11 +79,12 @@ const Login = () => {
               </div>
 
               <button
-                className="btn btn-primary w-100"
-                onClick={handleLogin}
-              >
-                Login
-              </button>
+                  className="btn btn-primary w-100"
+                  onClick={handleLogin}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Logging in..." : "Login"}
+                </button>
 
             </div>
 

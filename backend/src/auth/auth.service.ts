@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable ,UnauthorizedException,} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -29,21 +29,26 @@ export class AuthService {
       };
     }
 
-    if (user.password !== loginDto.password) {
-      return {
-        message: 'Invalid Email or Password',
-      };
+    if (!user || user.password !== loginDto.password) {
+      throw new UnauthorizedException(
+        'Invalid Email or Password',
+      );
     }
-     const accessToken = this.jwtService.sign({
-        sub: user.id,
-        email: user.email,
-        role: user.role,
+
+    const accessToken = this.jwtService.sign({
+      sub: user.id,
+      email: user.email,
+      role: user.role,
     });
 
     return {
-        message: 'Login Successful',
-        access_token: accessToken,
-        user: user,
+      message: 'Login Successful',
+      access_token: accessToken,
+      user: {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+      },
     };
   }
 }
