@@ -82,7 +82,7 @@ const UserList = () => {
     if (isManager && users.role === "User") return true;
 
     
-    if (isAdmin && users.role !== "Admin") return true;
+     if (isAdmin) return true;
 
     return false;
   };
@@ -105,13 +105,18 @@ const UserList = () => {
 
         <div className="d-flex gap-2">
           {isAdmin  && (
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate('/add-user')}
-            >
-              <i className="bi bi-person-plus me-2"></i>
-              Add User
-            </button>
+            <div>
+              <button
+                className="btn btn-primary"
+                onClick={() => navigate('/add-user')}
+              >
+                <i className="bi bi-person-plus me-2"></i>
+                Add User
+              </button>
+              <button onClick={() => navigate('/pending-application')}>
+                Pending Application
+              </button>
+            </div>
           )}
 
           <button

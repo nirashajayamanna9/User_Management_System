@@ -1,6 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useLoginMutation } from "../service/authApi";
+
 
 const Login = () => {
 
@@ -93,12 +94,15 @@ const Login = () => {
                 </button>
 
             </div>
-
+            <p>
+              Create a new account? <Link to="/user-register">Sign up</Link>
+            </p>
           </div>
-
+          
         </div>
-
+        
       </div>
+      
 
     </div>
   );
