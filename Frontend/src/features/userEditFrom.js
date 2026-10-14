@@ -20,11 +20,16 @@ const EditUser = () => {
     { isLoading: isUpdating, error: updateError },
   ] = useUpdateUserMutation();
 
+  const currentUser = JSON.parse(
+    localStorage.getItem("user") || "null"
+  );
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
-
+  const isAdmin = currentUser?.role === "Admin";
+ 
   useEffect(() => {
     if (user) {
       setName(user.name ?? "");
@@ -121,7 +126,7 @@ const EditUser = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-
+                {isAdmin && (
                 <div className="mb-4">
                   <label className="form-label fw-semibold">
                     Role
@@ -138,7 +143,7 @@ const EditUser = () => {
                     <option value="Manager">Manager</option>
                   </select>
                 </div>
-
+                )}
                 {updateError && (
                   <div className="alert alert-danger">
                     Update failed. Check the email and backend response.
