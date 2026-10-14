@@ -6,7 +6,7 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  
   const navigate = useNavigate();
 
   const [login, { isLoading }] = useLoginMutation();
@@ -22,6 +22,11 @@ const Login = () => {
 
         if (result.access_token) {
           localStorage.setItem("access_token", result.access_token);
+
+          localStorage.setItem(
+          "user",
+          JSON.stringify(result.user)
+        );
 
           navigate("/user-list", { replace: true });
         } else {
@@ -77,6 +82,7 @@ const Login = () => {
                 />
 
               </div>
+              
 
               <button
                   className="btn btn-primary w-100"

@@ -18,6 +18,13 @@ const UserList = () => {
   const [deleteUser, { isLoading: isDeleting }] =
     useDeleteUserMutation();
 
+  const currentUser = JSON.parse(
+    localStorage.getItem("user") || "null"
+  );
+  const isAdmin = currentUser?.role === "Admin";
+  const isManager = currentUser?.role === "Manager";
+  const isUser = currentUser?.role === "User";
+
   async function handleDelete(id) {
     if (!window.confirm('Delete this user?')) return;
 
@@ -54,7 +61,32 @@ const UserList = () => {
       </div>
     );
   }
+  const isOwnProfile = (users) =>
+    String(users.id) === String(currentUser?.id);
 
+  const canEdit = (users) => {
+ 
+    if (isOwnProfile(users)) return true;
+
+    
+    if (isAdmin && users.role !== "Admin") return true;
+
+    return false;
+  };
+
+  const canDelete = (users) => {
+  
+    if (isOwnProfile(users)) return false;
+
+    
+    if (isManager && users.role === "User") return true;
+
+    
+    if (isAdmin && users.role !== "Admin") return true;
+
+    return false;
+  };
+  
   return (
     <div className="container py-5">
 
@@ -72,14 +104,15 @@ const UserList = () => {
         </div>
 
         <div className="d-flex gap-2">
-
-          <button
-            className="btn btn-primary"
-            onClick={() => navigate('/add-user')}
-          >
-            <i className="bi bi-person-plus me-2"></i>
-            Add User
-          </button>
+          {isAdmin  && (
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate('/add-user')}
+            >
+              <i className="bi bi-person-plus me-2"></i>
+              Add User
+            </button>
+          )}
 
           <button
             className="btn btn-danger"
@@ -92,7 +125,7 @@ const UserList = () => {
         </div>
       </div>
 
-      {/* User Table */}
+      
       <div className="card shadow-sm border-0">
 
         <div className="card-header bg-white py-3">
@@ -111,7 +144,9 @@ const UserList = () => {
                 <th>Name</th>
                 <th>Email</th>
                 <th className="text-start">Role</th>
-                <th>Action</th>
+                {(isAdmin || isManager || isUser) && (
+                  <th>Action</th>
+                )}
               </tr>
             </thead>
 
@@ -153,32 +188,40 @@ const UserList = () => {
                         {user.role}
                       </span>
                     </td>
-
+                    
                     <td>
-
-                      <button
-                        className="btn btn-sm btn-warning me-2"
-                        onClick={() =>
-                          navigate(`/edit-user/${user.id}`)
-                        }
-                      >
-                        <i className="bi bi-pencil me-1"></i>
-                        Edit
-                      </button>
-
-                      <button
-                        className="btn btn-sm btn-danger"
-                        disabled={isDeleting}
-                        onClick={() =>
-                          handleDelete(user.id)
-                        }
-                      >
-                        <i className="bi bi-trash me-1"></i>
-                        Delete
-                      </button>
-
+                        {canEdit(user) &&
+                        <button
+                          className="btn btn-sm btn-warning me-2"
+                          onClick={() =>
+                            navigate(`/edit-user/${user.id}`)
+                          }
+                        >
+                          <i className="bi bi-pencil me-1"></i>
+                          Edit
+                        </button>
+                          }
+                      {canDelete(user) && (
+                        <button
+                          className="btn btn-sm btn-danger"
+                          disabled={isDeleting}
+                          onClick={() =>
+                            handleDelete(user.id)
+                          }
+                        >
+                          <i className="bi bi-trash me-1"></i>
+                          Delete
+                        </button>
+                      )}
+                      {!canEdit(user) && !canDelete(user) && (
+                        <span className="badge rounded-pill bg-light text-secondary border px-3 py-2">
+                          <i className="bi bi-lock-fill me-2"></i>
+                          No Actions
+                        </span>
+                      )}
+                      
                     </td>
-
+                  
                   </tr>
 
                 ))
