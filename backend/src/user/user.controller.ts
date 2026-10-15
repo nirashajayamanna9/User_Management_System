@@ -13,6 +13,12 @@ export class UserController {
     getAllUsers(){
         return this.userService.getAllUsers();
     }
+
+    @Get('applications/pending')
+    getPendingApplications() {
+    return this.userService.getPendingApplications();
+    }
+
     @Get(':id')
     getById(@Param('id') id: string){
         return this.userService.getById(Number(id));
@@ -32,4 +38,24 @@ export class UserController {
             updatedUser,
         );
     }
+    @Patch('applications/:id/approve')
+    approveApplication(@Param('id') id: string) {
+        return this.userService.approveApplication(Number(id));
+    }
+    @Patch('applications/:id/reject')
+    rejectApplication(@Param('id') id: string) {
+        return this.userService.rejectApplication(Number(id));
+    }
+    @Post('register')
+    registerApplication(
+        @Body()
+            body: {
+                name: string;
+                email: string;
+                password: string;
+                role: string;
+            },
+            ) {
+            return this.userService.submitApplication(body);
+            }
 }

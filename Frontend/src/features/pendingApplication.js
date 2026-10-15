@@ -1,6 +1,8 @@
 import React from 'react'
 
 function PendingApplication() {
+
+    
   return (
     <div  className="container mt-5" >
         <h1>Pending Application</h1>
