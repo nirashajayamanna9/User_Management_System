@@ -53,6 +53,25 @@ export const userApi = createApi({
       }),
       invalidatesTags: ['Users'],
     }),
+    getPendingApplications: builder.query({
+      query: () => '/applications/pending',
+      providesTags: ['Applications'],
+    }),
+    approveApplication: builder.mutation({
+      query: (id) => ({
+        url: `/applications/${id}/approve`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['Applications', 'Users'],
+    }),
+    rejectApplication: builder.mutation({
+        query: (id) => ({
+          url: `/applications/${id}/reject`,
+          method: 'PATCH',
+        }),
+        invalidatesTags: ['Applications', 'Users'],
+        }),
+
   }),
 });
 
@@ -62,4 +81,7 @@ export const {
   useAddUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useGetPendingApplicationsQuery,
+  useApproveApplicationMutation,
+  useRejectApplicationMutation,
 } = userApi;

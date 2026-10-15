@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   useGetUsersQuery,
   useDeleteUserMutation,
+  useGetPendingApplicationsQuery
 } from '../service/userApi';
 
 const UserList = () => {
@@ -17,6 +18,12 @@ const UserList = () => {
 
   const [deleteUser, { isLoading: isDeleting }] =
     useDeleteUserMutation();
+
+  const {
+          data: applications = [],
+      } = useGetPendingApplicationsQuery();
+
+        const pendingCount = applications.length;
 
   const currentUser = JSON.parse(
     localStorage.getItem("user") || "null"
@@ -87,6 +94,7 @@ const UserList = () => {
     return false;
   };
   
+
   return (
     <div className="container py-5">
 
@@ -113,9 +121,16 @@ const UserList = () => {
                 <i className="bi bi-person-plus me-2"></i>
                 Add User
               </button>
-              <button onClick={() => navigate('/pending-application')}>
-                Pending Application
+              <button
+                  className="btn btn-info"
+                  onClick={() => navigate('/pending-application')}
+              >
+                  Pending Application
+                  <span className="badge bg-danger ms-2">
+                      {pendingCount}
+                  </span>
               </button>
+              
             </div>
           )}
 
