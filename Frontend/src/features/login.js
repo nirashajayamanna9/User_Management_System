@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useLoginMutation } from "../service/authApi";
+import EmailInput from "./emailInput";
 
 
 const Login = () => {
@@ -12,9 +13,12 @@ const Login = () => {
 
   const [login, { isLoading }] = useLoginMutation();
 
+  
+
  const handleLogin = async (e) => {
       e.preventDefault();
 
+      
       try {
         const result = await login({
           email,
@@ -54,20 +58,10 @@ const Login = () => {
                 Login Page
               </h2>
 
-              <div className="mb-3">
-
-                <label className="form-label">
-                  Email
-                </label>
-
-                <input
-                  type="text"
-                  placeholder="Enter Your Email"
-                  className="form-control"
-                  onChange={(e) => setEmail(e.target.value)}
+              <EmailInput
+                  email={email}
+                  setEmail={setEmail}
                 />
-
-              </div>
 
               <div className="mb-3">
 

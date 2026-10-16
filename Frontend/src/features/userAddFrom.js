@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAddUserMutation } from "../service/userApi";
+import EmailInput from './emailInput';
+import PasswordValidation from './passwordValidation';
+
 
 const AddUser = () => {
   const navigate = useNavigate();
@@ -58,31 +61,20 @@ const AddUser = () => {
                     className="form-control"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    placeholder='Enter Your Name'
                     required
                   />
                 </div>
 
-                <div className="mb-3">
-                  <label className="form-label">Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
+                <EmailInput
+                  email={email}
+                  setEmail={setEmail}
+                />
 
-                <div className="mb-3">
-                  <label className="form-label">Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
+                <PasswordValidation
+                  password={password}
+                  setPassword={setPassword}
+                />
 
                 <div className="mb-4">
                   <label className="form-label">Role</label>

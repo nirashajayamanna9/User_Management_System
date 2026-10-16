@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import {useRegisterUserMutation} from '../service/userApi';
 import { useNavigate } from 'react-router-dom';
+import EmailInput from './emailInput';
+import PasswordValidation from './passwordValidation';
+
+
 
 function UserRegister() {
 
@@ -61,16 +65,13 @@ function UserRegister() {
                         <input type='text' placeholder='Enter Your Name' className="form-control" 
                         value={name} onChange={(e)=>setName(e.target.value)}/>
                       </div>
-                      <div className='mb-3'>
-                        <label  className="form-label">Email</label>
-                        <input type='email' placeholder='Enter Your Email' className="form-control"
-                        value={email} onChange={(e)=>setEmail(e.target.value)}/>   
-                      </div>
-                      <div className='mb-3'>
-                        <label  className="form-label">Password</label>
-                        <input type='password' placeholder='Enter Your Password' className="form-control"
-                        value={password} onChange={(e)=>setPassword(e.target.value)}/>
-                      </div>
+                      <EmailInput
+                          email={email}
+                          setEmail={setEmail}
+                        />
+                      <PasswordValidation
+                        password={password}
+                        setPassword={setPassword}/>
                       <div className='mb-3'>
                         <label  className="form-label">Role</label>
                         <select className="form-control"

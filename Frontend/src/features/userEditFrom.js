@@ -4,6 +4,10 @@ import {
   useGetUserByIdQuery,
   useUpdateUserMutation,
 } from "../service/userApi";
+import EmailInput from "./emailInput";
+import PasswordValidation from "./passwordValidation";
+
+
 
 const EditUser = () => {
   const { id } = useParams();
@@ -101,31 +105,16 @@ const EditUser = () => {
                   />
                 </div>
 
-                <div className="mb-3">
-                  <label className="form-label fw-semibold">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+                <EmailInput
+                    email={email}
+                    setEmail={setEmail}
                   />
-                </div>
 
-                <div className="mb-3">
-                  <label className="form-label fw-semibold">
-                    New Password
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Leave blank to keep current password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
+                <PasswordValidation
+                  password={password}
+                  setPassword={setPassword}
+                />
+                
                 {isAdmin && (
                 <div className="mb-4">
                   <label className="form-label fw-semibold">
