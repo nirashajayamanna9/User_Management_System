@@ -71,6 +71,13 @@ export const userApi = createApi({
         }),
         invalidatesTags: ['Applications', 'Users'],
         }),
+    registerUser: builder.mutation({
+      query: (newUser) => ({
+        url: '/applications',
+        method: 'POST',
+        body: newUser,
+      }),
+    }),
 
   }),
 });
@@ -84,4 +91,5 @@ export const {
   useGetPendingApplicationsQuery,
   useApproveApplicationMutation,
   useRejectApplicationMutation,
+  useRegisterUserMutation,
 } = userApi;

@@ -59,12 +59,12 @@ export class UserService {
     name: string;
     email: string;
     password: string;
-    role: string;
+    requestedRole: string;
   }) {
     const name = data.name?.trim();
     const email = data.email?.trim().toLowerCase();
     const password = data.password;
-    const role = data.role;
+    const role = data.requestedRole;
 
     if (!name || !email || !password) {
       throw new BadRequestException(

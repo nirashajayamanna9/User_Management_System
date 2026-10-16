@@ -4,8 +4,11 @@ import {
     useApproveApplicationMutation,
     useRejectApplicationMutation,
 } from '../service/userApi';
+import { useNavigate } from 'react-router-dom';
 
 function PendingApplication() {
+
+    const navigate=useNavigate();
 
     
      const {
@@ -25,6 +28,7 @@ function PendingApplication() {
         try {
             await approveApplication(id).unwrap();
             alert('Application approved successfully!');
+            navigate('/user-list');
         } catch (err) {
             alert(
                 err?.data?.message || 'Approval failed!'
@@ -36,6 +40,7 @@ function PendingApplication() {
         try {
             await rejectApplication(id).unwrap();
             alert('Application rejected successfully!');
+            navigate('/user-list');
         } catch (err) {
             alert(
                 err?.data?.message || 'Rejection failed!'

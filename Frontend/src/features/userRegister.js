@@ -1,24 +1,48 @@
 import React, { useState } from 'react'
+import {useRegisterUserMutation} from '../service/userApi';
+import { useNavigate } from 'react-router-dom';
 
 function UserRegister() {
+
+  const navigate=useNavigate();
 
   const[name,setName]=useState("");
   const[email,setEmail]=useState("");
   const[password,setPassword]=useState("");
   const[role,setRole]= useState("");
 
-  const handleSignup= (e)=>{
-      e.preventDefault();
+  const [registerUser, { isLoading }] =
+    useRegisterUserMutation();
 
-      console.log({
-        name,
-        email,
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    try {
+      const result = await registerUser({
+        name: name.trim(),
+        email: email.trim(),
         password,
-        role,
-      });
+        requestedRole: role,
+      }).unwrap();
 
-      alert('Form submitted. Registration API is not connected yet.');
-  }
+      alert(
+        result?.message ||
+        'Registration submitted! Please wait for admin approval.'
+      );
+      navigate('/');
+
+      setName('');
+      setEmail('');
+      setPassword('');
+      setRole('');
+    } catch (err) {
+      const message = Array.isArray(err?.data?.message)
+        ? err.data.message.join(', ')
+        : err?.data?.message;
+
+      alert(message || 'Registration failed. Please try again.');
+    }
+  };
     
   
 
@@ -30,7 +54,7 @@ function UserRegister() {
               <div className="card-body p-4">
                   <h2 className="text-center mb-4">Create User New Account</h2>
 
-                  <form onClick={handleSignup}>
+                  <form onSubmit={handleSignup}>
                       <div>
                       <div className='mb-3'>
                         <label  className="form-label">Name</label>
@@ -52,11 +76,17 @@ function UserRegister() {
                         <select className="form-control"
                         value={role} onChange={(e)=>setRole(e.target.value)}>
                           <option value=" ">Role</option>
-                          <option value="user">User</option>
+                          <option value="User">User</option>
                           <option value="Manager">Manager</option>
                         </select>
                       </div>
-                      <button className="btn btn-primary w-100" type='submit'>Sign Up</button>
+                      <button
+                        className="btn btn-primary w-100"
+                        type="submit"
+                        disabled={isLoading}
+                      >
+                        {isLoading ? 'Registering...' : 'Sign Up'}
+                      </button>
                     </div>
                   </form>
               </div>

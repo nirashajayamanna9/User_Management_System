@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { UserService } from './user.service';
 import { CreateUserDto } from './DTO/create-user.dto';
 import { UpdateUserDto } from './DTO/update-user.dto';
+import { CreateApplicationDto } from './DTO/create-application.dto';
 
 @Controller('users')
 export class UserController {
@@ -46,16 +47,9 @@ export class UserController {
     rejectApplication(@Param('id') id: string) {
         return this.userService.rejectApplication(Number(id));
     }
-    @Post('register')
-    registerApplication(
-        @Body()
-            body: {
-                name: string;
-                email: string;
-                password: string;
-                role: string;
-            },
-            ) {
-            return this.userService.submitApplication(body);
-            }
+    
+   @Post('applications')
+    submitApplication(@Body() body: CreateApplicationDto) {
+    return this.userService.submitApplication(body);
+    }         
 }
